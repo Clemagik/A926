@@ -1,0 +1,12 @@
+#!/bin/bash
+
+export SDK_ROOT=`pwd`
+export SDK_BUILD=sdk
+export DEVICE_COMPILER_PREFIX=$SDK_ROOT/prebuilts/toolchains/mips-gcc-glibc/bin/mips-linux-gnu
+export COMPILER_PATH=$SDK_ROOT/prebuilts/toolchains/mips-gcc-glibc
+export TOOLCHAINS_DIR=mips-gcc-glibc
+COMPILER_LIB_VERSION=`ls --color=never $COMPILER_PATH/lib/gcc/mips-linux-gnu/`
+export COMPILER_LIB_VERSION
+export SDK_BUILD_MODULE=$1
+
+make all -B

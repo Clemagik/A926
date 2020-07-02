@@ -1,0 +1,27 @@
+----------------------------
+1. System Requirement
+
+	*Operation system: Ubuntu 14.04
+	*50 GB of available hard-disk space needed.
+
+----------------------------
+2.Install essential library for host
+
+	$source build/envsetup.sh
+	$autoenvsetup
+
+-----------------------------
+3.Compile image
+
+	$lunch
+	# select the specifies number
+	$make
+
+Wait the make finish,you will get the following files:
+
+	out/product/BASEBOARD/image/u-boot-with-spl.bin
+	out/product/BASEBOARD/image/uImage
+	out/product/BASEBOARD/image/system.*
+
+NOTE: BASEBOARD is your board name.
+
