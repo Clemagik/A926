@@ -1,0 +1,9 @@
+config BR2_PACKAGE_WIFI_AP_MODE
+    bool "wifi use ap mode"
+    default y
+    depends on BR2_PACKAGE_WIFI
+    select BR2_PACKAGE_DNSMASQ
+    select BR2_PACKAGE_HOSTAPD
+    select BR2_PACKAGE_HOSTAPD_WPS
+    help
+        wifi use ap mode

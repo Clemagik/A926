@@ -1,0 +1,11 @@
+config BR2_PACKAGE_WIFI_RTK
+    bool "WIFI_RTK"
+    select BR2_PACKAGE_RFKILL
+    help
+        default used wifi_rtk_8723
+
+if BR2_PACKAGE_WIFI_RTK
+
+source "package/ingenic/wifi/wifi_rtk/wifi_rtk_8723/Config.in"
+
+endif

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+[ -x /usr/sbin/dnsmasq ] || exit 0
+[ -f /etc/dnsmasq.conf ] || exit 0
+
+case "$1" in
+	start)
+		printf "Starting dnsmasq: "
+		#if [ -f /tmp/resolv.conf.auto ]; then
+		#	dnsmasq_arg="-r /tmp/resolv.conf.auto"
+		#fi
+		dnsmasq_arg="$dnsmasq_arg -r /etc/resolv.default"
+		start-stop-daemon -S -x /usr/sbin/dnsmasq -- $dnsmasq_arg
+		[ $? = 0 ] && echo "OK" || echo "FAIL"
+		;;
+	stop)
+		printf "Stopping dnsmasq: "
+		start-stop-daemon -K -q -x /usr/sbin/dnsmasq
+		[ $? = 0 ] && echo "OK" || echo "FAIL"
+		;;
+	restart|reload)
+		$0 stop
+		$0 start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit 0

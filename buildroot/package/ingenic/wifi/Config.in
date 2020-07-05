@@ -1,0 +1,68 @@
+menuconfig BR2_PACKAGE_WIFI
+	bool "wifi"
+    default y
+	help
+	  ingenic wifi support
+
+if BR2_PACKAGE_WIFI
+
+source "package/ingenic/wifi/wifi_common/Config.in"
+
+if !BR2_PACKAGE_WIFI_COMMON
+
+menu "select wifi chip"
+
+source "package/ingenic/wifi/wifi_bcm/Config.in"
+source "package/ingenic/wifi/wifi_rtk/Config.in"
+source "package/ingenic/wifi/wifi_esp8089/Config.in"
+
+endmenu
+
+config BR2_PACKAGE_WPA_SUPPLICANT
+    bool "wifi use wpa_supplicant"
+    default n
+    depends on BR2_PACKAGE_WIFI
+    help
+        wifi use wpa_supplicant
+
+config BR2_PACKAGE_WIFI_WPA_SUPPLICANT_CONF
+    string "wpa_supplicant.conf file path"
+    default "/usr/data/wpa_supplicant.conf"
+    depends on BR2_PACKAGE_WPA_SUPPLICANT
+
+config BR2_PACKAGE_WIFI_HOSTAP_CONF
+    string "hostapd.conf file path"
+    default "/usr/data/hostapd.conf"
+    depends on BR2_PACKAGE_WIFI_AP_MODE
+
+config BR2_PACKAGE_WIFI_HOSTAP_INTERFACE
+    string "hostap interface"
+    default "wlan1"
+    depends on BR2_PACKAGE_WIFI_AP_MODE
+
+config BR2_PACKAGE_WIFI_STARTUP
+    bool "wifi auto startup"
+    default y
+    depends on BR2_PACKAGE_WPA_SUPPLICANT
+    help
+        wifi auto startup.
+
+source "package/ingenic/wifi/wifi_ap_mode/Config.in"
+
+config BR2_PACKAGE_WIFIMAC_ADDR
+    string "wifi mac address"
+    default "C8:93:46:45:C3:80"
+    help
+        Please replace it with the new MAC address.
+
+endif
+
+config BR2_PACKAGE_WIFIMAC_ADDR_PATH
+    string "wifi mac address path"
+    default "/data/misc/wifi/"
+    help
+        Must be equal to the value of macro "WIFIMAC_ADDR_PATH" in the firmware,
+        eg. /data/misc/wifi/
+
+endif
+

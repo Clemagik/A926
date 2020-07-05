@@ -1,0 +1,84 @@
+menuconfig BR2_PACKAGE_SYSTEM_CONFIG
+	bool "system config for rootfs"
+	default y
+	help
+	  The ingenic customize for your system
+
+if BR2_PACKAGE_SYSTEM_CONFIG
+
+config BR2_SYSTEM_CONFIG_ENABLE_ROOT_LOGIN
+    bool "enable root login use /bin/sh, and no password"
+    depends on !BR2_TARGET_GENERIC_GETTY && !BR2_TARGET_ENABLE_ROOT_LOGIN
+
+config BR2_SYSTEM_CONFIG_LOGIN_TTY_PORT
+    string "login tty port"
+    default "ttyS0"
+    depends on BR2_SYSTEM_CONFIG_ENABLE_ROOT_LOGIN
+
+config BR2_SYSTEM_CONFIG_ENABLE_ADB
+    bool "enable adb service"
+    default y
+
+config BR2_SYSTEM_CONFIG_ADB_DEVICE_USE_DIFFERENT_NAME
+    bool "adb device use diffrent name"
+    depends on BR2_SYSTEM_CONFIG_ENABLE_ADB
+
+config BR2_SYSTEM_CONFIG_ADB_DEVICES_NAME_PREFIX
+    string "adb devices name prefix"
+    default "Duros"
+    depends on BR2_SYSTEM_CONFIG_ENABLE_ADB
+
+config BR2_SYSTEM_CONFIG_START_ADB_SERVER
+    bool "start adb server when system is start"
+    default y
+    depends on BR2_SYSTEM_CONFIG_ENABLE_ADB
+
+
+config BR2_SYSTEM_CONFIG_SET_DNS_SERVER
+    bool "set dns server"
+
+config BR2_SYSTEM_CONFIG_UTILS_MOUNT_UBIFS
+    bool "install mount_ubifs.sh"
+    select BR2_PACKAGE_MTD
+    select BR2_PACKAGE_MTD_FLASH_ERASE
+    select BR2_PACKAGE_MTD_UBIATTACH
+    select BR2_PACKAGE_MTD_UBIFORMAT
+    select BR2_PACKAGE_MTD_UBIMKVOL
+
+config BR2_SYSTEM_CONFIG_CACHEDNS
+    bool "cache dns"
+    default n
+
+config BR2_SYSTEM_CONFIG_MOUNT_USR_DATA_UBI
+    bool "mount usr data: mount_ubifs.sh userdata /usr/data/"
+	 select BR2_SYSTEM_CONFIG_UTILS_MOUNT_UBIFS
+
+config BR2_SYSTEM_CONFIG_QT4_TP_DEV
+    string "qt4 touch screen device"
+    default ""
+    help
+        e.g one device "linuxinput:/dev/input/event0"
+        e.g two device "linuxinput:/dev/input/event0 linuxinput:/dev/input/event1"
+        more device Separate witch ' '(space)
+
+config BR2_SYSTEM_CONFIG_QT4_KEYBOARD_DEV
+    string "qt4 key board device"
+    default ""
+    help
+        e.g one device "linuxinput:/dev/input/event0"
+        e.g two device "linuxinput:/dev/input/event0 linuxinput:/dev/input/event1"
+        more device Separate witch ' '(space)
+
+config BR2_SYSTEM_CONFIG_QT4_QWS_SIZE
+    string "qt4 qws size"
+    default "480x320"
+    help
+        e.g "width*height"
+
+config BR2_SYSTEM_CONFIG_QT4_QWS_DISPLAY
+    string "qt4 qws display"
+    default "LinuxFB:mmWidth130:mmHeight89:0"
+    help
+        e.g "LinuxFB:mmWidth130:mmHeight89:0"
+
+endif # BR2_PACKAGE_SYSTEM_CONFIG

@@ -1,0 +1,61 @@
+config BR2_PACKAGE_WIFI_COMMON
+       bool "common wifi device"
+       select BR2_PACKAGE_MACGEN
+       help
+        common wifi device.
+
+if BR2_PACKAGE_WIFI_COMMON
+
+menu "support wifi device list"
+
+config BR2_PACKAGE_WIFI_COMMON_BCM43362_A2
+       bool "BCM43362 A2"
+       select BR2_PACKAGE_WPA_SUPPLICANT
+       select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+       select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+       help
+         BCM43362 A2
+
+config BR2_PACKAGE_WIFI_COMMON_BCM43438_A0
+       bool "BCM43438 A0"
+       select BR2_PACKAGE_WPA_SUPPLICANT
+       select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+       select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+       help
+         BCM43438 A0
+
+config BR2_PACKAGE_WIFI_COMMON_BCM43438_A1
+       bool "BCM43438 A1"
+       select BR2_PACKAGE_WPA_SUPPLICANT
+       select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+       select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+       help
+         BCM43438 A1
+
+config BR2_PACKAGE_WIFI_COMMON_BCM4345
+       bool "BCM4345"
+       select BR2_PACKAGE_WPA_SUPPLICANT
+       select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+       select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+       help
+         BCM4345
+
+config BR2_PACKAGE_WIFI_COMMON_RTL8723DS
+       bool "rtl8723ds"
+       select BR2_PACKAGE_WPA_SUPPLICANT
+       select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+       select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+       help
+         rtl8723ds
+
+config BR2_PACKAGE_WIFI_COMMON_ESP8089
+       bool "esp8089"
+       select BR2_PACKAGE_WPA_SUPPLICANT
+       select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+       select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+       help
+         esp8089
+
+endmenu
+
+endif

@@ -1,0 +1,17 @@
+config BR2_PACKAGE_WIFI_BCM
+    bool "WIFI_BCM"
+    help
+        choice one of wifi_bcm
+
+if BR2_PACKAGE_WIFI_BCM
+choice
+    prompt "WIFI BCM Default Select"
+    help
+        wifi bcm select support
+
+source "package/ingenic/wifi/wifi_bcm/wifi_bcm_43438/Config.in"
+source "package/ingenic/wifi/wifi_bcm/wifi_bcm_43362/Config.in"
+source "package/ingenic/wifi/wifi_bcm/wifi_bcm_ap6256/Config.in"
+endchoice
+
+endif

@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Start wifi ....
+#
+
+case "$1" in
+    start)
+        echo "Starting wifi ..."
+        download_wifi_firmware.sh
+        ;;
+    stop)
+        echo "Stop wifi ..."
+        wifi_down.sh
+        ;;
+    restart|reload)
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?

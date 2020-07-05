@@ -1,0 +1,32 @@
+cmake handle DT_MIPS_RLD_REL_MAP in RemoveRPath do not work when host
+binutils lower than 2.26. Defined DT_MIPS_RLD_MAP_REL if it is undefined.
+
+[Liu Qian: tweak patch for 3.8.2]
+
+Signed-off-by: Liu Qian <qian.liu@ingenic.com>
+Signed-off-by: Brad King <brad.king@kitware.com>
+
+---
+ Source/cmELF.cxx | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Source/cmELF.cxx b/Source/cmELF.cxx
+index 0655da9..6c6d488 100644
+--- a/Source/cmELF.cxx
++++ b/Source/cmELF.cxx
+@@ -677,6 +677,12 @@ cmELF::StringEntry const* cmELFInternalImpl<Types>::GetDynamicSectionString(
+ const long cmELF::TagRPath = DT_RPATH;
+ const long cmELF::TagRunPath = DT_RUNPATH;
+ 
++#ifndef DT_MIPS_RLD_MAP_REL
++#undef DT_MIPS_NUM
++#define DT_MIPS_RLD_MAP_REL  0x70000035
++#define DT_MIPS_NUM         0x36
++#endif
++
+ #ifdef DT_MIPS_RLD_MAP_REL
+ const long cmELF::TagMipsRldMapRel = DT_MIPS_RLD_MAP_REL;
+ #else
+-- 
+1.7.12.4
+

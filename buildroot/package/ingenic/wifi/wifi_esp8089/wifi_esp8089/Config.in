@@ -1,0 +1,19 @@
+
+choice
+     prompt "select wifi firmware"
+     default BR2_PACKAGE_WIFI_RTK_8723
+     help
+        default used WIFI_RTK_8723
+
+
+config BR2_PACKAGE_WIFI_RTK_8723
+     bool "WIFI_RTK_8723"
+     select BR2_PACKAGE_WPA_SUPPLICANT
+     select BR2_PACKAGE_WPA_SUPPLICANT_CLI
+     select BR2_PACKAGE_WPA_SUPPLICANT_PASSPHRASE
+     help
+         WIFI_RTK_8723
+
+endchoice
+
+

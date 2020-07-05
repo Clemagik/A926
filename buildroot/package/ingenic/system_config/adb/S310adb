@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# Start mass_storage....
+#
+
+case "$1" in
+  start)
+	cd /sys/class/android_usb/android0
+	value=`cat ./functions`
+	if [ "$value" != "adb" ]
+	then
+	    echo 0 > enable
+	    echo 18d1 > idVendor
+	    echo d002 > idProduct
+	    echo adb > functions
+	    echo 1 > enable
+	fi
+	cd -
+
+	if [ ! -f "/usr/data/disableadb"  ];then
+		echo "Starting adb ..."
+		if [ "$env_adb_device_use_diffrent_name" = "y" ]; then
+			echo "=======================>ADB device use diffrent name ..."
+			mac=$(cat /sys/class/net/wlan0/address | sed 's/[^0-9|a-z]//g')
+			echo -n $env_adb_device_name_prefix"_"${mac:8} > /sys/class/android_usb/android0/iSerial
+		else
+			echo "=======================>ADB device use same name ..."
+			mac=dev
+			echo -n $env_adb_device_name_prefix"_"${mac} > /sys/class/android_usb/android0/iSerial
+		fi
+
+		if [ ! -f "/sbin/adbserver.sh" ];then
+			/usr/bin/adbd &
+		else
+			/sbin/adbserver.sh 310 &
+		fi
+	else
+		echo "Not start adb"
+		mac=$(cat /sys/class/net/wlan0/address | sed 's/[^0-9|a-z]//g')
+		echo -n $env_adb_device_name_prefix"_"${mac:8} > /sys/class/android_usb/android0/iSerial
+	fi
+
+	;;
+  stop)
+	;;
+  restart|reload)
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

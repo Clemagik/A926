@@ -1,0 +1,32 @@
+From 53d1363a2572c2f3a1b8b131c6e8a3c4715ba060 Mon Sep 17 00:00:00 2001
+From: Liu Qian <qian.liu@ingenic.com>
+Date: Wed, 11 Mar 2020 15:01:09 +0800
+Subject: [PATCH] remove opencv4 build directory check
+
+---
+ CMakeLists.txt | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c19689f..ddc5f38 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -6,15 +6,6 @@
+ #
+ # ----------------------------------------------------------------------------
+ 
+-# Disable in-source builds to prevent source tree corruption.
+-if(" ${CMAKE_SOURCE_DIR}" STREQUAL " ${CMAKE_BINARY_DIR}")
+-  message(FATAL_ERROR "
+-FATAL: In-source builds are not allowed.
+-       You should create a separate directory for build files.
+-")
+-endif()
+-
+-
+ include(cmake/OpenCVMinDepVersions.cmake)
+ 
+ if(CMAKE_GENERATOR MATCHES Xcode AND XCODE_VERSION VERSION_GREATER 4.3)
+-- 
+1.9.1
+

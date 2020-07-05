@@ -1,0 +1,11 @@
+config BR2_PACKAGE_WIFI_ESP8089
+    bool "WIFI_esp8089"
+    select BR2_PACKAGE_RFKILL
+    help
+        default used wifi_esp8089
+
+if BR2_PACKAGE_ESP8089
+
+source "package/ingenic/wifi/wifi_esp8089/wifi_esp8089/Config.in"
+
+endif

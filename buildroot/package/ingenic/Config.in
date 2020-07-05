@@ -1,0 +1,9 @@
+menuconfig BR2_PACKAGE_INGENIC
+	bool "ingenic packages"
+	help
+	  This option enables the ingenic packages
+
+if BR2_PACKAGE_INGENIC
+	source "package/ingenic/wifi/Config.in"
+	source "package/ingenic/system_config/Config.in"
+endif
