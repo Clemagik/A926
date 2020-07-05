@@ -1,0 +1,115 @@
+2017-12-15 Jianfang Li <jianfang.li@ingenic.com>
+
+	update 2017.12-15
+
+		* Fixed: popcnt illegal instruction on some X86 host.
+
+
+2017-12-05 Qian Liu <qian.liu@ingenic.com>
+
+	release Ingenic linux toolchains linux_r3.2.1-gcc520
+
+	* gcc (FMA): Disable all scalar and vector fused madd
+	instruction generate.
+	(MADD): Backup all MSA imadd/fmadd instructions intrinsic
+	function API from upstream, which is MSA maddv and fmsub
+	(march=xburst2): Fix xburst2 option without attach
+	"-mfp64" bug.
+
+
+2017-08-21 Wang Chengjin <chengjin.wang@ingenic.com>
+
+        release Ingenic linux toolchains linux_r3.2.0-gcc520
+
+	* gcc (MXU2): Support mips Ingenic MXU2 instructions.
+	  Support mips Ingenic MXU2 intrinsic functions.
+	  Enable MXU2 vector test.
+	  Merge MXU2 target test from branch "dev".
+          Fix MXU2 Bug #605.
+          (MXU): Fix bug about MXU load instructions from the memory address.
+	  (MSA): Fix MSA Bug #269.
+          (__builtin_prefetch): Support Xburst2 special __builtin_prefetch.
+	  Set __builtin_prefetch as schedule barrier.
+	* binutils : Support mips Ingenic MXU2 instructions.
+	* gdb: Support disassemble mips Ingenic MXU2 instructions .
+        * qemu (MSA): Fixed bugs on MSA.
+
+   	Backport from upstream:
+
+  	* gcc: backport from upstream to fix PR target/65956.
+
+2017-03-20 Liu Qian <qian.liu@ingenic.com>
+
+	Debug sysroot on release_3.1.1-gcc520.
+	* gcc:  Set sysroot path as /mfp64 if set option -mmsa.
+
+2017-03-13 Liu Qian <qian.liu@ingenic.com>
+
+	release Ingenic linux toolchains linux_r3.1.1-gcc520
+
+2017-03-13 Liu Qian <qian.liu@ingenic.com>
+
+	Change mfp32 as default multilib.
+	* gcc: Add arch option -march=xburst and -march=xburst2.
+	* binutils: Likewise.
+
+	* gcc: mfp32-lib as default multilib. Add mfp64 multilib dir.
+	Support option "-mmxu" for Ingenic XBURST MXU Extension insn.
+
+
+2017-02-24 Liu Qian <qian.liu@ingenic.com>
+
+	* gcc: Support macro fusion for got(high/lo_sum).
+	Support macro fusion for itype-store pairs.
+
+2017-02-20 Liu Qian <qian.liu@ingenic.com>
+
+	* gcc: Support macro fusion for LOAD/ALU pairs.
+
+2017-02-13 Liu Qian <qian.liu@ingenic.com>
+
+	* MSA builtin: define macro __msa_* for MSA insn's bnz.v/bz.v
+	bnz.df/bz.df ctcmsa.
+	* MXA: update Ingenic MXA instruction reference
+	Ingenc_MXA_instruction_set_00.07.
+
+	Issue #100:
+	* Debug: disable split of V4F32/V2F64 variable setting to 0.
+
+	* Based on linux_r3.1.0-gcc520.
+
+2017-01-03 Liu Qian <qian.liu@ingenic.com>
+
+	release Ingenic linux toolchains linux_r3.1.0-gcc520
+
+2017-01-03 Liu Qian <qian.liu@ingenic.com>
+
+	* Support mips cross prelink.
+	* Add mips qemu and support Ingenic x2000 target.
+	* Add gnu xhash style support for glibc's.
+	* Disable instruction lsa generate by gcc when isa < 6.
+
+2016-12-15 Liu Qian <qian.liu@ingenic.com>
+
+	* Gcc's: for mfp64 option, default add -mabs=2008
+	-mno-fused-madd.
+	* Add uclibc wrappers.
+
+2016-11-12  Update info.
+
+	release Ingenic linux toolchains linux_r3.0.0-gcc520
+
+	* Release linux toolchains gcc5.2.0 + binutils2.25.1 + glibc2.22.
+	* Support mips MSA instructions.
+	* Support Ingenic extend MXA instructions.
+	* Default arch. option as "-mips32r2 -mabi=32 -mfp64 -mnan2008".
+	* Disable -mbranch-likely for -Os when targetting generic arch.
+	* Use -msynci for targets that do now support it.
+
+
+Local Variables:
+mode: change-log
+left-margin: 8
+fill-column: 76
+version-control: never
+End:

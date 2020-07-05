@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Start dlog....
+#
+
+case "$1" in
+  start)
+	echo "Starting dlog..."
+	/usr/bin/dlog_logger -b 99 -t 600 &
+	;;
+  stop)
+	;;
+  restart|reload)
+	;;
+  *)
+	exit 1
+esac
+
+exit $?

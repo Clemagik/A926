@@ -1,0 +1,15 @@
+/**
+ * @brief
+ * libbacktrace, this module used to trace the function call stack and locate segment errors.
+ *
+ * Operation method: Refors to external/android/libutils/CallStack
+ *
+ * Add this module in the project:
+ *
+ * device/\<board\>/\<board\>_base.mk:PRODUCT_ANDROID_MODULES += libbacktrace
+ *
+ * @author Ingenic
+ *
+ * @version android 5.1
+ */
+libbacktrace Description;

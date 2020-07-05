@@ -1,0 +1,17 @@
+/**
+ * @brief
+ * The primary goal of this project is to define a portable and efficient
+ * C programming interface (API) to determine the call-chain of a program.
+ *
+ * Operation method:
+ * Refers to libunwind official description.
+ *
+ * Add this module in the project:
+ *
+ * device/\<board\>/\<board\>_base.mk:PRODUCT_MODULES += libunwind
+ *
+ * @author Ingenic
+ *
+ * @version android 5.1
+ */
+Libunwind Description;

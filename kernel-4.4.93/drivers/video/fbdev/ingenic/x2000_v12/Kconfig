@@ -1,0 +1,11 @@
+menuconfig FB_INGENIC_X2000_V12
+	tristate "Ingenic Framebuffer Driver for X2000_v12"
+	depends on FB_INGENIC
+	select FB_INGENIC_DISPLAYS_X2000_V12
+	select FB_CFB_FILLRECT
+	select FB_CFB_COPYAREA
+	select FB_CFB_IMAGEBLIT
+	help
+	  Framebuffer support for the X2000_v12 DPU SoC.
+
+source "drivers/video/fbdev/ingenic/x2000_v12/displays/Kconfig"

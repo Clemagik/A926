@@ -1,0 +1,64 @@
+#!/bin/bash
+
+MODE=none
+OBJ=none
+VAL=none
+CONFIG_PATH="/opt/etc"
+
+function Usage()
+{
+	/bin/echo "Usage: dlogctrl {get|set} {platformlog | loglimiter } {on|off}"
+	exit 1
+}
+
+case "$1" in
+get)
+	MODE=get
+;;
+set)
+	MODE=set
+;;
+*)
+	Usage
+esac
+
+case "$2" in
+platformlog)
+	OBJ=PlatformLogs
+;;
+loglimiter)
+	OBJ=LogLimiter
+;;
+*)
+	Usage
+esac
+
+if [ "$MODE" = "set" ]; then
+	case "$3" in
+	1|on)
+		VAL=on
+	;;
+	0|off)
+		VAL=off
+	;;
+	*)
+		Usage
+	esac
+
+	echo "Setting $OBJ=$VAL"
+	/bin/sed "s/$OBJ[\t ]*[onf]*/$OBJ $VAL/" < "$CONFIG_PATH/dlog.conf" > /tmp/dlog.conf.new
+	/bin/cp /tmp/dlog.conf.new "$CONFIG_PATH/dlog.conf"
+	/bin/sync
+	echo "You must reboot this target to apply the change!"
+else
+	case "$(grep "$OBJ" "$CONFIG_PATH/dlog.conf" | awk '{ print $2 }')" in
+	on)
+		/bin/echo "1"
+	;;
+	off)
+		/bin/echo "0"
+	;;
+	esac
+fi
+
+exit 0

@@ -1,0 +1,4 @@
+wifi_rtsp_up.sh
+servicemanager &
+mediaserver &
+RTSPServer &

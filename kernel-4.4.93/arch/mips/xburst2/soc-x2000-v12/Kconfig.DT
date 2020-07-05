@@ -1,0 +1,17 @@
+config DT_HALLEY5_V10
+	bool "x2000-v12 halley5_v10"
+
+config DT_HALLEY5_V20
+	bool "x2000-v12 halley5_v20"
+
+config DT_ZEBRA
+	bool "x2000-v12 zebra"
+
+config DT_ZEBRA_ISP
+	bool "x2000-v12 zebra with isp camera board."
+
+config DT_ZEBRA_CIM
+	bool "x2000-v12 zebra with cim camera board."
+
+config DT_XXZA926
+    bool "x2000-v12 xxzA926"

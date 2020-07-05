@@ -1,0 +1,34 @@
+config INGENIC_MAC
+	tristate "ingenic on-chip MAC support"
+	select CRC32
+	select MII
+	help
+	  This is the driver for INGENIC on-chip mac device.
+
+config INGENIC_MAC_DMA_INTERFACES
+	bool "Ingenic mac dma interfaces"
+	depends on INGENIC_MAC
+	help
+	  This is for MAC Dma interfaces selection
+choice
+	prompt "Ingenic mac dma bus interfaces"
+	depends on INGENIC_MAC_DMA_INTERFACES
+	default CONFIG_INGENIC_MAC_AHB_BUS
+
+config INGENIC_MAC_AXI_BUS
+	bool "MAC_AXI_BUS"
+	help
+	  Select for mac dma AXI bus
+
+config INGENIC_MAC_AHB_BUS
+	bool "MAC_AHB_BUS"
+	help
+	  Select for mac dma AHB bus
+endchoice
+
+config JZ_GMAC_USE_HWSTAMP
+    bool "Use IEEE 1588 hwstamp"
+	depends on INGENIC_MAC && SOC_X2000_V12
+	select PTP_1588_CLOCK
+	help
+	  To support the IEEE 1588 Precision Time Protocol (PTP)

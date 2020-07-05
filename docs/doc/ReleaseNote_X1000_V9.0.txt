@@ -1,0 +1,104 @@
+X1000 Kernel 3.10 Linux V9.0发布，内核版本linux 3.10.14，参考设备为X1000/E
+
+参考开发板：
+    	RD_X1000_HALLEY2_EXT/Baseboard_V2.0（SPI-nor JFFS2/SPI-nand UBI）.
+	RD_X1000_HALLEY2_EXT/Baseboard_V4.1（SPI-nor JFFS2/SPI-nand UBI）.
+	
+
+Tags:
+    ingenic-linux-kernel3.10.14-x1000-v9.0-20191212
+
+版本更新功能：
+      
+    uboot:
+	1.支持DS35X1GAXXX ，GD5F2/4G5QUE/F nand;
+	2.支持基于SFC NAND FLASH存储的SN和MAC地址存储方案;
+	3.设置uart IO 为芯片内上拉；
+	4.usb 增加gadget-hid 功能，支持键盘或鼠标模式；
+	5.usb 修复2.0 U盘无法读写数据的限制；
+	6.security boot 添加了chipkey重加密功能（该功能仅支持sfc_nor启动），基于sfc_nor启动模式下,优化uboot安全启动kernel。
+	     
+    kernel：
+	1.修复jz fb frambuffer 显示错误问题；
+	2.更新gpio proc show 接口；
+	3.增加uart test :tools/uart_test/;
+	4.支持DS35X1GAXXX nand；
+	5.增加yaffs2文件系统支持；
+	6.修复i2c pio 写超时问题；
+	7.设置uart IO 为芯片内上拉；
+	8.支持触摸屏 FT6206；
+	9.camera 增加预留内存接口；
+
+    
+   SDK rootfs：
+	1.变更编译规则，支持命令创建板级模板，变更kernel,文件系统的编译方式，新编译规则指导：doc/manhattan_platform_compilation_guide/New-compilation-rules/New-compilation-project.md；
+	2.修改默认文件系统属性为只读(ro),增加可读写data分区；
+		16MB nor flash 对应烧录工具配置：configs/x1000/x1000_sfc_nor_16mb.cfg
+		32MB nor flash 对应烧录工具配置：configs/x1000/x1000_sfc_nor_32mb.cfg
+	3.更改rootfs为buildroot编译;
+	
+
+
+烧录工具：
+        基于烧录工具V2.5.4版本。
+		路径：rebuilts/burnertools:
+			cloner-2.5.4-ubuntu_x1000_datapartition.tar.gz
+			cloner-2.5.4-windows_x1000_datapartition.zip
+目前存在的问题：
+       目前没有发现严重问题。
+
+版本测试：
+        在本次版本发布之前，对软件进行了功能测试,具体测试结果，请参看附件。
+
+Repo 工具下载:
+        $ mkdir x1000
+        $ cd x1000
+        $ wget http://git.ingenic.com.cn:8082/bj/repo
+        $ chmod +x repo
+
+代码下载：
+  北京内网下载：
+        $  ./repo init -u ssh://username@192.168.1.26:29418/Manhattan/platform/manifest -b ingenic-linux-kernel3.10.14-x1000-v9.0-20191212 -m platform/x1000.xml
+        $  ./repo sync
+        $  ./repo forall -c "git reset --hard ingenic-linux-kernel3.10.14-x1000-v9.0-20191212"
+注：username: Gerrit注册的账户名
+
+  外网下载：
+	链接: https://pan.baidu.com/s/1zFyCA9_0yox-WUImROiPAQ 提取码: 1jit 
+         
+
+编译命令：
+编译环境：ubuntu 14.04 (16.04) 64bit
+初次使用Manhatton 工程需要进入工程目录执行以下命令安装编译需要的工具：
+        $ source build/envsetup.sh (初始化编译环境)
+        $ autoenvsetup
+
+整体编译SDK:
+(1)进入工程目录，执行以下命令
+        $ source build/envsetup.sh 
+        $ lunch
+
+(2)选择相应的开发板
+        $ make
+
+(3)在out/product/“板级”/image/ 下生成烧录所需要的文件:
+        system.*
+        uboot
+        kernel
+支持make -jN 多线程编译。
+
+单独编译uboot和kernel：
+  (1) 编译uboot
+        $ cd <Manhatton_Project>
+        $ make uboot
+
+ （2）编译kernel
+	$ cd <Manhatton_Project>
+        $ make kernel
+	
+  (3) 编译buildroot
+	$ cd <Manhatton_Project>
+	$ make buildroot
+
+问题与反馈:
+        如有问题与建议请联系support@ingenic.com。

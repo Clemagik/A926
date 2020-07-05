@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Start mass_storage....
+#
+
+case "$1" in
+  start)
+	  echo "Starting mount ..."
+
+	  if [ ! -c /dev/ubi1_0 ]; then
+		ubimkvol /dev/ubi1 -s 20MiB -N userdata
+		while [ ! -c /dev/ubi1_0 ];do
+			wait
+		done
+	  fi
+
+	  mkdir -p /usr/data
+	  mount -t ubifs /dev/ubi1_0 /usr/data
+	  ;;
+  stop)
+	;;
+  restart|reload)
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

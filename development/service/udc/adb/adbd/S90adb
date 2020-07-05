@@ -1,0 +1,36 @@
+#!/bin/sh
+#
+# Start mass_storage....
+#
+
+case "$1" in
+  start)
+	echo "Starting mass_storage..."
+	if [ -d /sys/class/android_usb/android0 ]
+	then
+	    echo "310"
+	    /etc/init.d/adb/S310adb $1
+	else
+	    echo "440"
+	    /etc/init.d/adb/S440adb $1
+	fi
+	;;
+  stop)
+	echo "Stop mass_storage..."
+	if [ -d /sys/class/android_usb/android0 ]
+	then
+	    echo "310"
+	    /etc/init.d/adb/S310adb $1
+	else
+	    echo "440"
+	    /etc/init.d/adb/S440adb $1
+	fi
+	;;
+  restart|reload)
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

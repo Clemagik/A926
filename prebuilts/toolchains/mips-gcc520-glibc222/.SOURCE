@@ -1,0 +1,33 @@
+Jz-special/: 6ae148bfdb26605a8a43f9c611f7c973fd6b6652  release_3.2.1-gcc520
+locals/: db95c1613528b40cf3e6d36f01d75ddda79f8b47 [merge] cmake support from sourcery-201511
+binutils-2015.11/: 662e2a32e2aaa4c9c779ac5877654626b5f48c3b  release_3.2.1-gcc520
+cmake-3.8.2/: d847de4d9996bb227dd818844020128fb226baaf release_3.2.1-gcc520
+config-trunk/: 7b29a9e629bb6081f8ddc0761160f8f5197ba790  release_3.2.1-gcc520
+coreutils-5.94/: e64cc60950a89b9c2b12d1402a2692f0076e2294  release_3.2.1-gcc520
+expat-2015.11/: a8d95a0b4118d7388f1ebd0a64a4347b1ad25cbe  release_3.2.1-gcc520
+fbench-trunk/: 88224c3f210387b09dd53d22b4103a45976ce1f4  release_3.2.1-gcc520
+gcc-5-2015.11/: 9b075bdc4119b5375bcee48c915bb961e260bd81  release_3.2.1-gcc520
+gdb-2015.11/: 662e2a32e2aaa4c9c779ac5877654626b5f48c3b  release_3.2.1-gcc520
+gettext-0.18.1.1/: 369ce5a896b68ebc7ee6e91dfd61c0ca4a638840  release_3.2.1-gcc520
+glib-2.44.1/: ae54cc78635f75deb99bf5d3ed7902c151e4f3b4  release_3.2.1-gcc520
+glibc-2.22-2015.11/: 9bb7813d3e235b949564d287f11cdd5dd221e60d  release_3.2.1-gcc520
+gmp-2015.11/: 225d2e37d4f0cac820934328c74bb8afaac9e350  release_3.2.1-gcc520
+isl-0.14/: 1c3038e9bef432ac5e99ea38330baa5d8d717e00  release_3.2.1-gcc520
+libelf-2015.11/: 7b58cf8d51d4a8828ba926bee25cddc5da90ef49  release_3.2.1-gcc520
+libfdt-2015.11/: 8675fa7cdf28c1af8f0e04fdc6b0ab2c99fbde79  release_3.2.1-gcc520
+libffi-3.2.1/: 901eae6aef374172b76a2240c2fd870f5c32e75f  release_3.2.1-gcc520
+libiconv-1.14/: bc3f74547f016dd615bbe253dbce6be1a9b75600  release_3.2.1-gcc520
+linux-2015.11/: b0b84e82fbb7d1d9f51a323d4ebc0a5c387388f5  release_3.2.1-gcc520
+make-3.81/: 8b25b3f80a4109754510fa8825b5b50720fa3307  release_3.2.1-gcc520
+mpc-2015.11/: 4fa3928535cae05aee753fe8769f95a9600f55bf  release_3.2.1-gcc520
+mpfr-2015.11/: 2ec24e5c75376dcd715b1a013c4c0c38e713aaf3  release_3.2.1-gcc520
+ncurses-5.9/: 342f3a0e1da4a0d6bb91b9657651c030b640052a  release_3.2.1-gcc520
+newlib-2015.11/: 9f9a6000043b8f41e423e9acb454edf0c92e0151  release_3.2.1-gcc520
+pixman-0.32.6/: afd0c5d0162b00f506897bffc560a984ce629979  release_3.2.1-gcc520
+prelink-2015.11/: bd31b6e89933d2584e8a6a726564bb24f39a8477  release_3.2.1-gcc520
+python-2.7.5/: 32b3d704f5c0a17e93c99c55d4700d6d9dcae76f  release_3.2.1-gcc520
+python-win32-2.7.5/: 20ddb0f559409014d8bc98d5c1ed90caca603960  release_3.2.1-gcc520
+qemu-ingenic/: ab45657f1bd5dc4f39158dd4e46f4921e405a3bf  release_3.2.1-gcc520
+uclibc-2015.11/: 63234e2a0cfcdd3ab094e79ec4472ed1071a4edc  release_3.2.1-gcc520
+zlib-1.2.8/: 34ccc46dd963924cacc5cecbd583d75bfa42c3ae  release_3.2.1-gcc520
+manifest/:  61140c1fed5ee4f73990395f19f3152e73656762 [Add] support cmake download

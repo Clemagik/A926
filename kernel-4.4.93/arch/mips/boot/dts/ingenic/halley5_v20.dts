@@ -1,0 +1,355 @@
+/dts-v1/;
+
+#include <dt-bindings/input/input.h>
+#include "x2000-v12.dtsi"
+#include <dt-bindings/interrupt-controller/irq.h>
+
+/ {
+	compatible = "img,halley5", "ingenic,x2000-v12";
+};
+
+&uart0 {
+	status = "disable";
+};
+
+&uart2 {
+	status = "disable";
+};
+
+&uart3 {
+	status = "disable";
+};
+
+&uart4 {
+	status = "disable";
+};
+
+&uart5 {
+	status = "disable";
+};
+
+&uart6 {
+	status = "disable";
+};
+
+&uart7 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart7_pc>;
+};
+
+&i2c0 {
+	clock-frequency = <400000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c0_pc>;
+
+	focaltech@0x38{
+		compatible = "focaltech,fts"; /* do not modify */
+		reg = <0x38>; /* do not modify */
+		interrupt-parent = <&gpc>; /* INT pin */
+		interrupts = <9>;
+		focaltech,reset-gpio = <&gpc 8 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>; /* RST pin */
+		focaltech,irq-gpio = <&gpc 9 IRQ_TYPE_EDGE_FALLING INGENIC_GPIO_NOBIAS>; /* INT pin */
+		focaltech,max-touch-number = <5>;
+		focaltech,display-coords = <0 0 1080 1920>;	/* resolution */
+
+		/* key settings */
+		focaltech,have-key;
+		focaltech,key-number = <3>;
+		focaltech,keys = <139 172 158>; /* key codes*/
+		focaltech,key-x-coords = <200 600 800>; /* keys x coords */
+		focaltech,key-y-coords = <2000 2000 2000>; /* keys y coords */
+
+	};
+
+};
+
+&i2c1 {
+	status = "okay";
+	clock-frequency = <100000>;
+	timeout = <1000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c1_pc>;
+
+	/*RD_X2000_HALLEY5_CAMERA_V2.0*/
+	ov4689_0:ov4689@0x21 {
+		status = "ok";
+		compatible = "ovti,ov4689";
+		reg = <0x21>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&cim_vic_mclk_pc>;
+
+		port {
+			ov4689_ep0:endpoint {
+				remote-endpoint = <&isp0_ep>;
+			};
+		};
+	};
+};
+
+&i2c3 {
+	status = "disable";
+	clock-frequency = <100000>;
+	timeout = <1000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c3_pa>;
+
+	/*RD_X2000_HALLEY5_CAMERA_V2.0*/
+	ov4689_1:ov4689@0x21 {
+		status = "ok";
+		compatible = "ovti,ov4689";
+		reg = <0x21>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&cim_vic_mclk_pe_24M>;
+
+		ingenic,rst-gpio = <&gpb 4 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+
+		port {
+			ov4689_ep1:endpoint {
+				remote-endpoint = <&isp1_ep>;
+			};
+		};
+	};
+
+	/*RD_X2000_HALLEY5_CAMERA_V4.1 DVP interface*/
+	ov2735_0:ov2735@0x3d {
+		status = "ok";
+		compatible = "ovti,ov2735b";
+		reg = <0x3d>;
+		ingenic,iovcc_1v8;	/*if dvp voltage is 1.8v.?*/
+		pinctrl-names = "default", "default";
+		pinctrl-0 = <&vic_pa_low_10bit>;
+		pinctrl-1 = <&cim_vic_mclk_pe_24M>;
+
+		ingenic,rst-gpio = <&gpa 10 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+
+		port {
+			ov2735_ep0:endpoint {
+				remote-endpoint = <&isp0_ep>;
+				bus-width = <10>;	/* Used data lines */
+				data-shift = <0>;	/* Lines 9:0 are used */
+
+				/* If hsync-active/vsync-active are missing,
+				   embedded BT.656 sync is used */
+				hsync-active = <1>;	/* Active high */
+				vsync-active = <1>;	/* Active high */
+				data-active = <1>;	/* Active high */
+				pclk-sample = <1>;	/* Rising */
+			};
+		};
+	};
+};
+
+&i2c4 {
+	status = "disable";
+};
+
+&isp0_ep {
+	/*
+	remote-endpoint = <&ov4689_ep0>;
+	data-lanes = <2>;
+	clk-lanes = <1>;
+*/
+	//DVP Sensor
+	remote-endpoint = <&ov2735_ep0>;
+	bus-width = <10>;	/* Used data lines */
+	data-shift = <0>;	/* Lines 9:0 are used */
+
+	/* If hsync-active/vsync-active are missing,
+	   embedded BT.656 sync is used */
+	hsync-active = <1>;	/* Active high */
+	vsync-active = <1>;	/* Active high */
+	data-active = <1>;	/* Active high */
+	pclk-sample = <1>;	/* Rising */
+};
+
+&isp1_ep {
+	remote-endpoint = <&ov4689_ep1>;
+	data-lanes = <2>;
+	clk-lanes = <1>;
+};
+
+&felix {
+	status = "okay";
+};
+
+&helix {
+	status = "okay";
+};
+
+&pdma {
+	status = "okay";
+};
+
+&msc0 {
+	status = "disable";
+	/*mmc-hs200-1_8v;*/
+	cap-mmc-highspeed;
+	non-removable;
+	max-frequency = <50000000>;
+	bus-width = <4>;
+	non-removable;
+	voltage-ranges = <1800 3300>;
+
+	/* special property */
+	ingenic,wp-gpios = <0>;
+	ingneic,cd-gpios = <0>;
+	ingenic,rst-gpios = <0>;
+};
+
+&msc1 {
+	status = "okay";
+	pinctrl-names ="default","enable", "disable";
+	pinctrl-0 = <&msc1_4bit>;
+	pinctrl-1 = <&rtc32k_enable>;
+	pinctrl-2 = <&rtc32k_disable>;
+
+	max-frequency = <50000000>;
+	bus-width = <4>;
+	voltage-ranges = <1800 3300>;
+	/*non-removable;*/
+
+	ingenic,sdio_clk = <1>;
+	keep-power-in-suspend;
+
+	/* special property */
+	ingenic,wp-gpios = <0>;
+	ingneic,cd-gpios = <0>;
+	ingenic,rst-gpios = <0>;
+	ingenic,removal-manual; /*removal-dontcare, removal-nonremovable, removal-removable, removal-manual*/
+
+	bcmdhd_wlan: bcmdhd_wlan {
+		 compatible = "android,bcmdhd_wlan";
+		 ingenic,sdio-irq = <&gpd 0 IRQ_TYPE_LEVEL_HIGH INGENIC_GPIO_NOBIAS>;
+		 ingenic,sdio-reset = <&gpd 1 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+	};
+};
+
+&msc2 {
+	status = "okay";
+	pinctrl-names ="default";
+	pinctrl-0 = <&msc2_4bit>;
+	/*mmc-hs200-1_8v;*/
+	cap-mmc-highspeed;
+	non-removable;
+	max-frequency = <50000000>;
+	bus-width = <4>;
+	non-removable;
+	voltage-ranges = <1800 3300>;
+
+	/* special property */
+	ingenic,wp-gpios = <0>;
+	ingneic,cd-gpios = <0>;
+	ingenic,rst-gpios = <0>;
+};
+
+
+&mac1 {
+	pinctrl-names = "default", "reset";
+	pinctrl-0 = <&mac1_rgmii_p0_normal>, <&mac1_rgmii_p1_normal>;
+	pinctrl-1 = <&mac1_rgmii_p0_rst>, <&mac1_rgmii_p1_normal>;
+	status = "okay";
+	ingenic,rst-gpio = <&gpb 16 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+	ingenic,rst-ms = <10>;
+	ingenic,mac-mode = <RGMII>;
+	ingenic,mode-reg = <0xb00000e8>;
+	ingenic,rx-clk-delay = <0x0>;
+	ingenic,tx-clk-delay = <0x3f>;
+};
+
+&sfc {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&sfc_pe>;
+	ingenic,sfc-max-frequency = <320000000>;
+	ingenic,use_board_info      = /bits/ 8 <0>;
+	ingenic,spiflash_param_offset = <0>;
+
+
+};
+
+&dtrng {
+	status = "okay";
+};
+
+&pwm {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pwm0_pd>;
+	status = "okay";
+};
+
+&otg {
+	g-use-dma;
+	dr_mode = "otg";
+	status = "okay";
+};
+
+&otg_phy {
+	dr_mode = "otg";
+	compatible = "ingenic,innophy", "syscon";
+	ingenic,drvvbus-gpio = <&gpe 22 GPIO_ACTIVE_HIGH INGENIC_GPIO_NOBIAS>;
+	status = "okay";
+};
+
+&as_dmic {
+	pinctrl-names = "default";
+	pinctrl-0 = <&dmic_pc_4ch>;
+};
+
+&icodec {
+	ingenic,spken-gpio = <&gpc 0 GPIO_ACTIVE_HIGH INGENIC_GPIO_NOBIAS>;
+};
+
+&dpu {
+	status = "okay";
+	port {
+		dpu_out_ep: endpoint {
+	/*		remote-endpoint = <&panel_ma0060_ep>;*/
+	    };
+	};
+};
+
+
+/ {
+
+	extclk: extclk {
+		clock-frequency = <24000000>;
+	};
+
+	gpio_keys: gpio_keys {
+		   compatible = "gpio-keys";
+
+		   power {
+			   label = "Power";
+			   linux,code = <KEY_POWER>;
+			   gpios = <&gpe 31 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+			   gpio-key,wakeup;
+		   };
+	   };
+	sound {
+		compatible = "ingenic,x2000-sound";
+		ingenic,model = "halley5_v20";
+	};
+
+	display-dbi {
+		compatible = "simple-bus";
+		#interrupt-cells = <1>;
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges = <>;
+		panel_ma0060 {
+			compatible = "ingenic,ma0060";
+			status = "disable";
+			ingenic,vdd-en-gpio = <&gpc 3 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+			ingenic,rst-gpio = <&gpc 4 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+			ingenic,oled-gpio = <&gpc 5 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+			ingenic,lcd-pwm-gpio = <&gpc 1 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+			ingenic,swire-gpio = <&gpc 7 GPIO_ACTIVE_LOW INGENIC_GPIO_NOBIAS>;
+			port {
+				panel_ma0060_ep: endpoint {
+					remote-endpoint = <&dpu_out_ep>;
+				};
+			};
+		};
+	};
+};

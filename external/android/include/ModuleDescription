@@ -1,0 +1,13 @@
+/**
+ * @brief
+ * Android-include, contains headers of system/core in android, it's basis for other modules in external/android/.
+ *
+ * Add this module in the project:
+ *
+ * device/\<board\>/\<board\>_base.mk:PRODUCT_ANDROID_MODULES += android-includ
+ *
+ * @author Ingenic
+ *
+ * @version android 5.1
+ */
+Android-include Description;

@@ -1,0 +1,27 @@
+comment "ingenic-isp camera sensor drivers"
+
+
+config INGENIC_ISP_CAMERA_OV4689
+	tristate "ov4689 camera support"
+	depends on VIDEO_INGENIC_ISP && I2C
+	help
+	  This is a ingenic-isp camera driver for the OmniVision OV4689 sensor
+
+config INGENIC_ISP_CAMERA_SC2232H
+	tristate "sc2232h camera support"
+	depends on VIDEO_INGENIC_ISP && I2C
+	help
+	  This is a ingenic-isp camera driver for the OmniVision sc2232h sensor
+
+config INGENIC_ISP_CAMERA_OV2735B
+	tristate "ov2735 camera DVP interface support"
+	depends on VIDEO_INGENIC_ISP && I2C
+	help
+	  This is a ingenic-isp camera driver for the OmniVision OV2735 sensor DVP interface
+
+config INGENIC_ISP_CAMERA_OV2735A
+	tristate "ov2735 camera MIPI interface support"
+	depends on VIDEO_INGENIC_ISP && I2C
+	help
+	  This is a ingenic-isp camera driver for the OmniVision OV2735 sensor MIPI interface
+

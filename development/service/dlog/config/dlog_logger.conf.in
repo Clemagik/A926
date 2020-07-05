@@ -1,0 +1,3 @@
+dlogutil -b system -r 512 -n 1 -f /var/log/dlog_system -v dump *:I
+dlogutil -b main -r 256 -n 1 -f /var/log/dlog_main -v dump *:W
+dlogutil -b radio -r 512 -n 1 -f /var/log/dlog_radio -v dump

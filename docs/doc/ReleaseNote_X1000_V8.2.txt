@@ -1,0 +1,116 @@
+X1000 Kernel 3.10 Linux V8.2发布，内核版本linux 3.10，参考设备为X1000/E
+
+参考开发板：
+    	RD_X1000_HALLEY2_EXT/Baseboard_V2.0（SPI-nor JFFS2/SPI-nand UBI）.
+	RD_X1000_HALLEY2_EXT/Baseboard_V4.1（SPI-nor JFFS2/SPI-nand UBI）.
+	
+
+Tags:
+    ingenic-linux-kernel3.10.14-x1000-v8.2-20181116
+
+版本更新功能：
+      
+    bootloader：
+	更新sercurity boot 的功能。
+	支持功能：
+	1. spl安全引导uboot。
+	2. Uboot安全引导kernel。
+	3. 在系统初次启动时，采用chipkey加密spl和uboot。（仅支持nor-flash）。
+
+    	USB 支持做host功能， 支持u盘，camera 等外设。	
+
+    kernel:
+	作为host:
+	支持mass storage　功能
+	支持usb camera 功能，型号：ID 058f:5608 Alcor Micro Corp　，通过grab　测试
+	支持usb audio 功能，型号：海备斯、mojo声卡
+	支持hid 功能，可以检测到所有鼠标
+	支持serial　功能，设备：ftdi设备(usb 转串口设备)，通过serial 测试
+	支持printer　功能
+
+	作为device ：
+	支持adb,mass storage 功能
+	支持rndis 功能
+	支持usb audio 功能
+	支持serial 功能
+	支持webcamera功能 , 通过webcamera 测试
+	支持hid功能,通过hid 测试
+	支持printer 功能
+	
+    Manhattan：
+	增加usb 相关测试demo（host,device,pc端验证应用） packages/example/Sample/usb_test 到manhatton。	
+
+
+烧录工具：
+        基于烧录工具V2.5.0版本。
+
+目前存在的问题：
+       目前没有发现严重问题。
+
+版本测试：
+        在本次版本发布之前，对软件进行了功能测试和稳定性测试,具体测试结果，请参看附件。
+
+Repo 工具下载:
+        $ mkdir x1000
+        $ cd x1000
+        $ wget http://git.ingenic.cn:8082/bj/repo
+        $ chmod +x repo
+
+代码下载：
+  北京内网下载：
+        $./repo init -u ssh://username@192.168.1.26:29418/Manhattan/platform/manifest -b ingenic-linux-kernel3.10.14-x1000-v8.2-20181116 -m platform/x1000.xml
+        $ ./repo sync
+        $ ./repo forall -c "git reset --hard ingenic-linux-kernel3.10.14-x1000-v8.2-20181116"
+注：username: Gerrit注册的账户名
+
+  外网下载：
+         链接:  链接: https://pan.baidu.com/s/1Jp3XZKYqNktm01nD-Oq3Rw 密码: w488
+
+编译命令：
+编译环境：ubuntu 14.04 64bit
+初次使用Manhatton 工程需要进入工程目录执行以下命令安装编译需要的工具：
+        $ source build/envsetup.sh (初始化编译环境)
+        $ autoenvsetup
+
+以halley2为例，整体编译SDK:
+(1)选择配置
+        $ source build/envsetup.sh
+        $ lunch                     ### 选择相应的开发板， 如"halley2_norflash-eng"（开发板配置目录“device/halley2/”）
+Lunch menu... pick a combo:
+     1. halley2_spinand-eng
+     2. halley2_spinand_ota-eng
+     3. halley2_norflash-eng
+     4. halley2_norflash_ota-eng
+     5. phoenix_spinand-eng
+     6. phoenix_spinand_ota-eng
+     7. phoenix_norflash-eng
+     8. phoenix_norflash_ota-eng
+
+
+(2)编译
+        $ make
+
+(3)在out/product/halley2/image/ 下生成烧录所需要的文件:
+        system.*
+        u-boot-with-spl.bin
+        uImage
+注意不支持make -jN 多线程编译,如果想加快编译速度，参见Manhattan编译系统 说明文档。
+
+单独编译uboot和kernel：
+  (1) 编译uboot
+        $ cd u-boot
+        $ make distclean
+        $ make halley2_uImage_sfc_nor          ### 配置参考boards.cfg
+生成目标文件“u-boot-with-spl.bin”
+
+(2) 编译kernel
+        $ cd kernel
+        $ make halley2_linux_nor_defconfig     ### 配置参考"ls arch/mips/configs/halley2*" 或 "ls arch/mips/configs/phoenix*"
+        $ make uImage
+生成目标文件“arch/mips/boot/uImage”
+
+
+
+问题与反馈:
+        如有问题与建议请联系support@ingenic.com。
+

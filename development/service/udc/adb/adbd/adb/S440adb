@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# Start adb....
+#
+case "$1" in
+  start)
+	mount -t configfs none /sys/kernel/config
+	cd /sys/kernel/config/usb_gadget
+	mkdir -p demo/strings/0x409
+	echo 0x18d1 > demo/idVendor
+	echo 0xd002 > demo/idProduct
+	echo 0x200 > demo/bcdUSB
+	echo 0x100 > demo/bcdDevice
+	echo "ingenic" > demo/strings/0x409/manufacturer
+	echo "composite-demo" > demo/strings/0x409/product
+	echo "0123456789ABCDEF" > demo/strings/0x409/serialnumber
+	mkdir -p demo/configs/c.1/strings/0x409
+	echo "adb+storage" > demo/configs/c.1/strings/0x409/configuration
+	echo 120 > demo/configs/c.1/MaxPower
+
+	mkdir -p demo/functions/acm.GS0
+	ln -s demo/functions/acm.GS0 demo/configs/c.1
+
+	mkdir -p demo/functions/mass_storage.msg
+	ln -s demo/functions/mass_storage.msg demo/configs/c.1
+
+	killall adbd
+
+	mkdir -p demo/functions/ffs.adb
+	ln -s demo/functions/ffs.adb demo/configs/c.1
+	mkdir -p /dev/usb-ffs/adb
+	adbserver.sh 440 &
+	cd -
+	;;
+  stop)
+	echo none > /sys/kernel/config/usb_gadget/demo/UDC
+	killall adbserver.sh
+	killall adbd
+	sleep 1
+	umount /dev/usb-ffs/adb
+	rm /sys/kernel/config/usb_gadget/ -rf
+	rm /sys/kernel/config/usb_gadget/ -rf
+	umount /sys/kernel/config
+	;;
+  restart|reload)
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

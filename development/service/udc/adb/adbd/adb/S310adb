@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Start mass_storage....
+#
+
+case "$1" in
+  start)
+	cd /sys/class/android_usb/android0
+	value=`cat ./functions`
+	if [ "$value" != "mass_storage,adb" ]
+	then
+	    echo 0 > enable
+	    echo 18d1 > idVendor
+	    echo d002 > idProduct
+	    echo mass_storage,adb > functions
+	    echo 1 > enable
+	fi
+	/sbin/adbserver.sh 310 &
+	/usr/bin/udc_mass_storage.sh &
+	cd -
+	;;
+  stop)
+	;;
+  restart|reload)
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

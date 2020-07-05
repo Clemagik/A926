@@ -1,0 +1,20 @@
+menuconfig DRM_INGENIC
+	tristate "DRM Support for Ingenic LCDC Display Controller"
+	depends on DRM && OF
+	select DRM_KMS_HELPER
+	select DRM_KMS_FB_HELPER
+	select DRM_KMS_CMA_HELPER
+	select DRM_GEM_CMA_HELPER
+	select DRM_PANEL
+	select VIDEOMODE_HELPERS
+	select BACKLIGHT_CLASS_DEVICE
+	select BACKLIGHT_LCD_SUPPORT
+	help
+	  Choose this option if you have an Ingenic SoC with LCDC display
+	  controller
+
+config DRM_INGENIC_X2000
+	tristate "Ingenic X2000 DPU Display Controller"
+	depends on DRM_INGENIC
+	help
+	  Choose this option if you want to use ingenic x2000 dpu.

@@ -1,0 +1,26 @@
+/**
+ * @brief
+ * DLog, in the Debug mode will output information, including the
+ * method name, the number of rows and what you want to output.
+ *
+ * Use dlogutil to print you log:
+ *		1. Print *LOGV: \<dlogutil *:V\>
+ *		2. Print RLOG* and SECURE_RLOG*: \<dlogutil -b radio\> / \<dlogutil -b radio *:V\>
+ *		3. Clear log: \<dlogutil -c\> / \<dlogutil -b radio -c\>
+ *		4. Run <dlogutil --help> to know more how to use dlogutil.
+ *
+ * Note:
+ *		1. Must define LOG_TAG before include \<dlog.h\>
+ *		2. Must define DEBUG_ENABLE before include \<dlog.h\> if you want to print *LOGD
+ *
+ * Operation method: Refors to test/dlog_sample.c
+ *
+ * Add this module in the project:
+ *
+ * device/\<board\>/\<board\>_base.mk:PRODUCT_MODULES += dlog
+ *
+ * @author Ingenic
+ *
+ * @version 1.0.0
+ */
+DLog Description;

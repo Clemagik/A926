@@ -1,0 +1,45 @@
+#ifndef __TIZIANO_PARAMS_OPERATE_H__
+#define __TIZIANO_PARAMS_OPERATE_H__
+
+enum {
+	TISP_TOP_MID_DPC,
+	TISP_TOP_MID_GIB,
+	TISP_TOP_MID_LSC,
+	TISP_TOP_MID_AWB,
+	TISP_TOP_MID_ADR,
+	TISP_TOP_MID_DMS,
+	TISP_TOP_MID_CCM,
+	TISP_TOP_MID_GAMMA,
+	TISP_TOP_MID_DEFOG,
+	TISP_TOP_MID_CLM,
+	TISP_TOP_MID_Y_SHARPEN,
+	TISP_TOP_MID_MDNS,
+	TISP_TOP_MID_SDNS,
+	TISP_TOP_MID_HLDC,
+	TISP_TOP_MID_TP,
+	TISP_TOP_MID_FONT,
+};
+
+enum {
+	TISP_AE_GENERAL_CTRLS,
+	TISP_TOP_CTRLS,
+	TISP_REG_CTRLS,
+	TISP_DAY_NIGHT_CTRLS,
+	TISP_SENSOR_INFO_CTRLS,
+	TISP_AWB_CTRLS,
+};
+
+enum {
+	TISP_PARAM_OP_TYPE_ARRAY_GET,
+	TISP_PARAM_OP_TYPE_ARRAY_SET,
+	TISP_PARAM_OP_CTRLS_SET,
+	TISP_PARAM_OP_CTRLS_GET,
+};
+
+#ifdef __KERNEL__
+/* tzctrl应用程序会包含该头文件，对于应用程序，不需要申明这两个函数. */
+int32_t tisp_param_operate_init(tisp_param_operate_t *param_operate);
+int32_t tisp_param_operate_deinit(tisp_param_operate_t *param_operate);
+#endif
+
+#endif

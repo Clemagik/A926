@@ -1,0 +1,65 @@
+#
+# Dlog configuration file.
+#
+# Lines beginning with '#' are comments.
+#
+# Following file configures dlog library.
+# First section contains global configuration for library.
+# It allows to disable or enable platform logs and log limiter features.
+
+PlatformLogs                   on        # Possible values are 'on' and 'off'
+LogLimiter                     off
+
+# Second section controls filtering rules for dlog limiter.
+# Each line represent a rule for a filter. Filtering is done
+# at runtime, but configuration is read only at the boot time.
+# Log lines filtered out are not written to log buffers.
+# Filtering is done for "TAG"|priority pair, where TAG is string defined by application.
+# Which should be quoted with '"' character. It may contain spaces but not TABs.
+# Priority is one character from the following values:
+#
+#     V or v or 1 - Verbose messages,
+#     D or d or 2 - Debug messages,
+#     I or i or 3 - Informational messages,
+#     W or w or 4 - Warning messages,
+#     E or e or 5 - Error messages,
+#     F or f or 6 - Fatal messages.
+#
+# Limiter can define rules 'for all' by using an '*' character.
+# It's a wildcard replacing all TAGs not mentioned in this file.
+# '*' could be used also as wildcard for priority.
+# An asterisk is not evaluated, which means rules like "WOR*" are threated as a TAGs.
+# Log filter works according to rules presented below:
+#
+# case 1) The "TAG"|priority pair is not presented on the list.
+#       - Use "TAG"|* rule to decide what to do.
+#       - If "TAG"|* is not defined, use "*"|priority rule to decide what to do.
+#       - If "*"|priority pair is not present, use "*"|* rule.
+#       - If rule "*"|* is not present, then allow logging.
+#
+# case 2) The "TAG"|priority pair is on the list (applies to
+#         "*" |priority and "*"|* rules).
+#       - If policy = ALLOW, then log speed is unlimited.
+#       - If policy = <number> then limit to <number> logs per minute.
+#       - If policy = DENY then forbid logging.
+#
+# Maximum <number> is 10000, which gives 10000 log line per minute.
+# Please keep in mind that dlog uses constant size log storage, thus
+# when the application writes many logs, it may cause older entries overwriting.
+#
+# The configuration file has following format:
+# Lines beginning with # are threated as comments.
+# TAG can contain any ASCII letter or digit and spaces, but
+# not a TAB character. TAG has to be quoted using '"' character.
+# TAG is separated from priority with pipe '|' character.
+# Priority is one character long, the possible values are presented above.
+# Policy is separated from the "TAG"|priority pair with TAB character.
+# Policy is expressed as ALLOW, DENY or number from 0 to 10000 (not case sensitive).
+# Setting policy as 0 is the same as DENY.
+# Setting policy to more than 10000 is threated as allow.
+
+
+
+
+# TAG|priority	POLICY
+"*"|*				ALLOW

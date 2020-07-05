@@ -1,0 +1,50 @@
+
+
+DOC_PATH="
+01_boot/u-boot/board/
+02_linux/board/
+02_linux/linux-3.10.14
+02_linux/linux-4.4
+02_linux/DT/
+02_linux/sound/
+02_linux/usb/
+02_linux/camera/
+02_linux/lcd/
+03_rootfs/
+04_app/gpio/
+04_app/input_key/
+04_app/i2c/
+04_app/spi/
+08_tools/cloner/
+08_tools/gcc/
+"
+
+
+
+docs/doc $ tree
+.
+|-- 01_boot
+|   `-- u-boot
+|       `-- board
+|-- 02_linux
+|   |-- DT
+|   |-- board
+|   |-- camera
+|   |-- lcd
+|   |-- linux-3.10.14
+|   |-- linux-4.4
+|   |-- sound
+|   `-- usb
+|-- 03_rootfs
+|-- 04_app
+|   |-- gpio
+|   |-- i2c
+|   |-- input_key
+|   `-- spi
+|-- 08_tools
+|   |-- cloner
+|   `-- gcc
+|-- Manhattan_platform编译系统使用指南.docx
+|-- Manhattan_platform编译系统使用指南.pdf
+|-- NFS_environment_to_build.pdf
+`-- X1000软件开发手册V4.2.pdf

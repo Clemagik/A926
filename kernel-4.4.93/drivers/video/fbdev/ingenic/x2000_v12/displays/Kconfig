@@ -1,0 +1,25 @@
+menuconfig FB_INGENIC_DISPLAYS_X2000_V12
+	tristate "Supported lcd panels"
+	depends on FB_INGENIC_X2000_V12
+	select BACKLIGHT_LCD_SUPPORT
+	select LCD_CLASS_DEVICE
+	select BACKLIGHT_CLASS_DEVICE
+
+
+config PANEL_X2000_V12_Y88249
+	tristate "lcd panel y88249"
+	depends on FB_INGENIC_DISPLAYS_X2000_V12
+	help
+		lcd panel y88249, for ingenicfb drivers.
+
+config PANEL_X2000_V12_KD050HDFIA019
+	tristate "lcd panel kd050hdfia019"
+	depends on FB_INGENIC_DISPLAYS_X2000_V12
+	help
+		lcd panel kd050hdfia019, for ingenicfb drivers.
+
+config PANEL_X2000_V12_MA0060
+	tristate "lcd panel MA0060"
+	depends on FB_INGENIC_DISPLAYS_X2000_V12
+	help
+		lcd panel MA0060, for ingenicfb drivers.
